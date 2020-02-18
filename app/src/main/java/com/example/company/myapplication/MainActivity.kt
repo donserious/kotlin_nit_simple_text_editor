@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -52,12 +53,25 @@ class MainActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0.toString() == "") stats_view.text = "0"
-                var stroka: String = p0.toString().replace("[^A-Za-z0-9_ ]".toRegex(), " ")
-                stroka = stroka.trim()
+                if ((p0.toString() != "") && (!p0!!.contains(" "))) stats_view.text = "1"
+
+                var stroka: String = p0.toString().replace("[^А-Яа-яA-Za-z0-9_ ]".toRegex(), " ").trim()
+                var str: String = ""
                 if (stroka.contains(" ")) {
-                    var arrayWord: List<String> = stroka.split(" ")
+                    var arrayWord: MutableList<String> = stroka.split("[! -]".toRegex()).toMutableList()
+//                    for (i in 0 until arrayWord.size-1){
+//                        if (arrayWord[i] == " ") arrayWord.removeAt(i)
+//                    }
                     stats_view.text = arrayWord.size.toString()
+//                    for (i in arrayWord.indices) {
+//                        str += "$i"+" "+arrayWord[i]+" "
+//                    }
+//                    var a: Toast = Toast.makeText(applicationContext, "$str", Toast.LENGTH_LONG)
+//                    a.show()
                 }
+
+
+
             }
         })
     }
