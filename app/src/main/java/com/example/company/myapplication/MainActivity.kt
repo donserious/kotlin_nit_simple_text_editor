@@ -33,9 +33,13 @@ class MainActivity : AppCompatActivity() {
 
 
         clear_button.setOnClickListener { v: View ->
-            text = ""
+
             editText.setText("")
             stats_view.text = "0"
+        }
+
+        load_button.setOnClickListener{v : View ->
+            editText.setText(text)
         }
 
 
@@ -59,15 +63,16 @@ class MainActivity : AppCompatActivity() {
                 var str: String = ""
                 if (stroka.contains(" ")) {
                     var arrayWord: MutableList<String> = stroka.split("[! -]".toRegex()).toMutableList()
-//                    for (i in 0 until arrayWord.size-1){
-//                        if (arrayWord[i] == " ") arrayWord.removeAt(i)
-//                    }
-                    stats_view.text = arrayWord.size.toString()
-//                    for (i in arrayWord.indices) {
-//                        str += "$i"+" "+arrayWord[i]+" "
-//                    }
-//                    var a: Toast = Toast.makeText(applicationContext, "$str", Toast.LENGTH_LONG)
-//                    a.show()
+                    var arrayWordNew: MutableList<String> = mutableListOf()
+                    for (i in 0 until arrayWord.size){
+                        if (arrayWord[i] != "") arrayWordNew.add(arrayWord[i])
+                    }
+                    stats_view.text = arrayWordNew.size.toString()
+                    for (i in arrayWordNew.indices) {
+                        str += "$i"+"_"+arrayWordNew[i]+"_"
+                    }
+                    var a: Toast = Toast.makeText(applicationContext, "$str", Toast.LENGTH_LONG)
+                    a.show()
                 }
 
 
